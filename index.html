@@ -4,47 +4,142 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Empire Financer</title>
+
 <style>
-/* ==================== RESET ==================== */
-* {margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body {background:linear-gradient(120deg, #1f1c2c, #928dab); color:#fff;}
-button {cursor:pointer;border:none;outline:none; transition:0.3s;}
-button:hover {opacity:0.85;}
+/* ======= RESET ======= */
+* {
+  margin:0; padding:0; box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+body {
+  background:linear-gradient(120deg, #1f1c2c, #928dab);
+  color:#fff;
+  overflow-x:hidden;
+}
+button {
+  cursor:pointer;
+  border:none;
+  outline:none;
+  transition:0.3s;
+}
 
-/* ==================== HEADER ==================== */
-header {width:100%;padding:20px;background:rgba(0,0,0,0.6);display:flex;justify-content:space-between;align-items:center;position:fixed;top:0;left:0;z-index:100;}
-header h1 {font-size:1.8rem;color:#ffd700;}
-header .menu-btn {font-size:1.5rem;background:none;color:#fff;}
+/* ======= HEADER ======= */
+header {
+  width:100%;
+  padding:20px;
+  background:rgba(0,0,0,0.6);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:fixed;
+  top:0; left:0;
+  z-index:100;
+}
+header h1 {
+  font-size:1.8rem;
+  color:#ffd700;
+}
+header .menu-btn {
+  font-size:1.8rem;
+  background:none;
+  color:#fff;
+}
 
-/* ==================== LOGIN ==================== */
-#login-container {position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.7);padding:40px;border-radius:15px;width:300px;text-align:center;}
-#login-container h2 {margin-bottom:20px;color:#ffd700;}
-#login-container input {width:90%;padding:10px;margin:10px 0;border-radius:8px;border:none;}
-#login-container button {width:95%;padding:12px;background:#4caf50;color:#fff;font-weight:bold;border-radius:8px;margin-top:10px;}
+/* ======= LOGIN ======= */
+#login-container {
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  background:rgba(0,0,0,0.7);
+  padding:40px;
+  border-radius:15px;
+  width:320px;
+  text-align:center;
+}
+#login-container h2 { color:#ffd700; margin-bottom:20px; }
+#login-container input {
+  width:90%;
+  padding:10px;
+  margin:10px 0;
+  border-radius:8px;
+  border:none;
+}
+#login-container button {
+  width:95%;
+  padding:12px;
+  background:#4caf50;
+  color:#fff;
+  font-weight:bold;
+  border-radius:8px;
+}
 
-/* ==================== SIDEBAR ==================== */
-#sidebar {position:fixed;top:0;left:-250px;width:250px;height:100%;background:rgba(0,0,0,0.85);transition:0.4s;padding-top:80px;z-index:99;}
-#sidebar.active {left:0;}
-#sidebar button {width:90%;margin:10px auto;padding:12px;background:linear-gradient(90deg,#6a11cb,#2575fc);border-radius:10px;font-weight:bold;color:#fff;display:block;}
+/* ======= SIDEBAR PRINCIPAL ======= */
+#sidebar {
+  position:fixed;
+  top:0; left:-250px;
+  width:250px; height:100%;
+  background:rgba(0,0,0,0.85);
+  transition:0.4s;
+  padding-top:80px;
+  z-index:99;
+}
+#sidebar.active { left:0; }
+#sidebar button {
+  width:90%;
+  margin:10px auto;
+  padding:12px;
+  background:linear-gradient(90deg,#6a11cb,#2575fc);
+  border-radius:10px;
+  font-weight:bold;
+  color:#fff;
+  display:block;
+}
 
-/* ==================== MAIN ==================== */
-#main {margin-top:80px;padding:20px;transition:0.4s;min-height:90vh;}
+/* ======= MAIN ======= */
+#main {
+  margin-top:100px;
+  padding:20px;
+  transition:0.4s;
+  min-height:90vh;
+}
 
-/* ==================== CARDS ==================== */
-.card {background:rgba(255,255,255,0.1);border-radius:15px;padding:15px;margin:15px 0;transition:0.3s;}
-.card:hover {background:rgba(255,255,255,0.2);}
-.card h3 {color:#ffd700;margin-bottom:10px;}
-.card p {font-size:0.9rem;margin-bottom:5px;}
+/* ======= CARDS ======= */
+.card {
+  background:rgba(255,255,255,0.1);
+  border-radius:15px;
+  padding:20px;
+  margin:15px 0;
+  transition:0.3s;
+}
+.card:hover {
+  background:rgba(255,255,255,0.2);
+}
+.card h3 {
+  color:#ffd700;
+  margin-bottom:10px;
+}
 
-/* ==================== TABLE ==================== */
-table {width:100%;border-collapse:collapse;margin-top:20px;}
-table th, table td {padding:10px;border-bottom:1px solid rgba(255,255,255,0.2);text-align:center;}
-table th {background:rgba(255,255,255,0.1);}
-table tr:hover {background:rgba(255,255,255,0.2);}
+/* ======= TABLE ======= */
+table {
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+}
+table th, table td {
+  padding:12px;
+  border-bottom:1px solid rgba(255,255,255,0.2);
+  text-align:center;
+}
+table th {
+  background:rgba(255,255,255,0.1);
+}
+table tr:hover {
+  background:rgba(255,255,255,0.2);
+}
 
-/* ==================== TCHAT ==================== */
+/* CHAT */
 #chat-container {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255,255,255,0.1);
   border-radius: 15px;
   padding: 15px;
   margin-top: 20px;
@@ -52,7 +147,6 @@ table tr:hover {background:rgba(255,255,255,0.2);}
   display: flex;
   flex-direction: column;
 }
-
 #chat-messages {
   flex: 1;
   overflow-y: auto;
@@ -60,29 +154,20 @@ table tr:hover {background:rgba(255,255,255,0.2);}
   padding: 10px;
   border-radius: 10px;
 }
-
-.message {
-  margin-bottom: 10px;
-}
-
-.message span {
-  font-weight: bold;
-  color: #ffd700;
-}
+.message { margin-bottom: 10px; }
+.message span { font-weight:bold; color:#ffd700; }
 
 #chat-input {
   width: 100%;
   margin-top: 10px;
   display: flex;
 }
-
 #chat-input input {
   flex: 1;
   padding: 10px;
   border-radius: 8px 0 0 8px;
   border: none;
 }
-
 #chat-input button {
   padding: 10px;
   background: #2575fc;
@@ -92,267 +177,665 @@ table tr:hover {background:rgba(255,255,255,0.2);}
 }
 </style>
 </head>
+
 <body>
 
 <header>
-<h1>Empire Financer</h1>
-<button class="menu-btn" onclick="toggleSidebar()">☰</button>
+  <h1>Empire Financer</h1>
+  <button class="menu-btn" onclick="toggleSidebar()">☰</button>
 </header>
 
 <!-- LOGIN -->
 <div id="login-container">
-<h2>Connexion</h2>
-<input type="email" id="email" placeholder="Email">
-<input type="password" id="password" placeholder="Mot de passe">
-<button onclick="login()">Se connecter / Créer compte</button>
-<p style="font-size:0.8rem;margin-top:10px;">Vos données sont sauvegardées automatiquement</p>
+  <h2>Connexion</h2>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Mot de passe">
+  <button onclick="login()">Se connecter / Créer compte</button>
+  <p style="font-size:0.8rem;margin-top:10px;">Vos données sont sauvegardées automatiquement</p>
 </div>
 
-<!-- SIDEBAR -->
+<!-- SIDEBAR PRINCIPAL -->
 <div id="sidebar">
-<button onclick="showPage('accueil')">🏠 Accueil</button>
-<button onclick="showPage('proprietes')">🏢 Propriétés</button>
-<button onclick="showPage('portefeuille')">💰 Portefeuille</button>
-<button onclick="showPage('marche')">📈 Marché</button>
-<button onclick="showPage('entreprises')">🏭 Entreprises</button>
-<button onclick="showPage('banque')">🏦 Banque</button>
+  <button onclick="showPage('accueil')">🏠 Accueil</button>
+  <button onclick="showPage('proprietes')">🏢 Propriétés</button>
+  <button onclick="showPage('entreprises')">🏭 Entreprises</button>
+  <button onclick="showPage('banque')">🏦 Banque</button>
+  <button onclick="showPage('marche')">📈 Marché</button>
+  <button onclick="showPage('portefeuille')">💰 Portefeuille</button>
 </div>
 
 <!-- MAIN -->
 <div id="main"></div>
+<style>
 
+/* ======= BOUTONS PREMIUM ======= */
+
+.action-btn {
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin: 4px;
+  font-weight: bold;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+/* Acheter */
+.btn-buy {
+  background: linear-gradient(90deg, #00c851, #007e33);
+}
+.btn-buy:hover {
+  filter: brightness(1.15);
+}
+
+/* Vendre */
+.btn-sell {
+  background: linear-gradient(90deg, #ff4444, #cc0000);
+}
+.btn-sell:hover {
+  filter: brightness(1.15);
+}
+
+/* Embellir */
+.btn-upgrade {
+  background: linear-gradient(90deg, #aa66cc, #9933cc);
+}
+.btn-upgrade:hover {
+  filter: brightness(1.15);
+}
+
+/* Louer */
+.btn-rent {
+  background: linear-gradient(90deg, #33b5e5, #0099cc);
+}
+.btn-rent:hover {
+  filter: brightness(1.15);
+}
+
+/* Levée de fonds */
+.btn-fund {
+  background: linear-gradient(90deg, #fbc02d, #ffa000);
+  color:#000;
+}
+.btn-fund:hover {
+  filter: brightness(1.15);
+}
+
+/* Boutons internes entreprise */
+.company-menu-btn {
+  width: 90%;
+  padding: 12px;
+  margin: 10px auto;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #8e2de2, #4a00e0);
+  color: #fff;
+  font-weight:bold;
+  text-align:center;
+  display:block;
+}
+.company-menu-btn:hover {
+  opacity:0.8;
+}
+
+/* ======= POPUP CONFIRMATION ======= */
+
+#confirm-overlay {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.7);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:500;
+}
+
+#confirm-box {
+  background: rgba(20,20,20,0.95);
+  padding: 25px;
+  width: 350px;
+  border-radius: 15px;
+  text-align:center;
+  border:2px solid #ffd700;
+}
+
+#confirm-box h3 {
+  margin-bottom: 20px;
+  color:#ffd700;
+}
+
+#confirm-box button {
+  margin: 10px;
+  padding: 10px 15px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+#confirm-yes {
+  background:#4caf50;
+  color:#fff;
+}
+#confirm-no {
+  background:#d32f2f;
+  color:#fff;
+}
+</style>
+
+<!-- POPUP CONFIRMATION -->
+<div id="confirm-overlay">
+  <div id="confirm-box">
+    <h3 id="confirm-message">Confirmer ?</h3>
+    <button id="confirm-yes">Confirmer ✔</button>
+    <button id="confirm-no">Annuler ✖</button>
+  </div>
+</div>
 <script>
-// ==================== VARIABLES GLOBALES ====================
+/* =======================================================
+   =============== VARIABLES GLOBALES =====================
+   ======================================================= */
+
 let currentUser = null;
-let users = JSON.parse(localStorage.getItem('ef_users')) || {};
+
+let users = JSON.parse(localStorage.getItem("ef_users")) || {};
+
 let chatMessages = JSON.parse(localStorage.getItem("ef_chat")) || [];
-let biens = [];
-let biensSpeciaux = [];
+
+// Date de dernière mise à jour automatique
+let lastUpdate = localStorage.getItem("ef_last_update") 
+  ? new Date(localStorage.getItem("ef_last_update"))
+  : null;
+
+// Propriétés privées (joueur)
+let biensBase = [];
+
+// Propriétés entreprises
+let batimentsPro = [];
+
+// Entreprises du joueur
 let entreprises = [];
-let dettes = [];
-let patrimoine = 200000;
-let liquidite = 200000;
 
-// ==================== LOGIN ====================
-function login() {
-  const email = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value.trim();
-  if(!email || !password){alert('Remplissez email et mot de passe');return;}
-  if(!users[email]){users[email]={password:password,patrimoine:200000,liquidite:200000,biens:[],entreprises:[],dettes:[]};}
-  if(users[email].password!==password){alert('Mot de passe incorrect');return;}
-  
-  currentUser = email;
-  patrimoine = users[email].patrimoine;
-  liquidite = users[email].liquidite;
-  entreprises = users[email].entreprises;
-  dettes = users[email].dettes;
+// Liquidités / patrimoine du joueur (réassignés au login)
+let liquidite = 0;
+let patrimoine = 0;
 
-  document.getElementById('login-container').style.display='none';
-  showPage('accueil');
-}
+/* =======================================================
+   =============== FONCTIONS DE SAUVEGARDE ===============
+   ======================================================= */
 
-// ==================== SIDEBAR ====================
-function toggleSidebar(){
-  document.getElementById('sidebar').classList.toggle('active');
-}
+function saveGame() {
+    if (!currentUser) return;
 
-// ==================== SAUVEGARDE ====================
-function saveGame(){
-  if(!currentUser)return;
-  users[currentUser].patrimoine = patrimoine;
-  users[currentUser].liquidite = liquidite;
-  users[currentUser].entreprises = entreprises;
-  users[currentUser].dettes = dettes;
-  localStorage.setItem('ef_users',JSON.stringify(users));
+    users[currentUser].liquidite = liquidite;
+    users[currentUser].patrimoine = patrimoine;
+    users[currentUser].entreprises = entreprises;
+    users[currentUser].biens = users[currentUser].biens || [];
+
+    localStorage.setItem("ef_users", JSON.stringify(users));
 }
 
 function saveChat() {
-  localStorage.setItem("ef_chat", JSON.stringify(chatMessages));
+    localStorage.setItem("ef_chat", JSON.stringify(chatMessages));
 }
 
-// ==================== NAVIGATION ====================
-function showPage(page){
-  const main = document.getElementById('main');
-  main.innerHTML='';
-  toggleSidebar();
-
-  if(page==='accueil'){renderAccueil();}
-  else if(page==='proprietes'){renderProprietes();}
-  else if(page==='portefeuille'){renderPortefeuille();}
-  else if(page==='marche'){renderMarche();}
-  else if(page==='entreprises'){renderEntreprises();}
-  else if(page==='banque'){renderBanque();}
+function saveLastUpdate() {
+    const now = new Date();
+    localStorage.setItem("ef_last_update", now.toISOString());
 }
 
-// ==================== PAGE ACCUEIL + TCHAT ====================
-function renderAccueil(){
-  const main = document.getElementById('main');
-  const html = `
-    <div class="card">
-      <h3>Bienvenue dans Empire Financer</h3>
-      <p>Liquidité : ${liquidite.toLocaleString()} €</p>
-      <p>Patrimoine total : ${patrimoine.toLocaleString()} €</p>
-      <p>Nombre de biens : ${users[currentUser].biens.length}</p>
-      <p>Nombre d'entreprises : ${entreprises.length}</p>
-    </div>
+/* =======================================================
+   ================= CONFIRMATION POPUP ===================
+   ======================================================= */
 
-    <!-- TCHAT -->
-    <div id="chat-container">
-      <h3 style="color:#ffd700;margin-bottom:10px;">💬 Tchat Général</h3>
-      <div id="chat-messages"></div>
-      <div id="chat-input">
-        <input id="chat-text" type="text" placeholder="Écrire un message…" 
-               onkeypress="if(event.key==='Enter') envoyerMessage()">
-        <button onclick="envoyerMessage()">Envoyer</button>
-      </div>
-    </div>
-  `;
-  main.innerHTML = html;
+let confirmCallback = null;
 
-  renderChat();
-  saveGame();
+function openConfirm(message, callback) {
+    document.getElementById("confirm-message").innerText = message;
+    document.getElementById("confirm-overlay").style.display = "flex";
+    confirmCallback = callback;
 }
 
-function envoyerMessage() {
-  const input = document.getElementById("chat-text");
-  let msg = input.value.trim();
-  if(msg === "") return;
+document.getElementById("confirm-yes").onclick = () => {
+    if (confirmCallback) confirmCallback();
+    document.getElementById("confirm-overlay").style.display = "none";
+};
+document.getElementById("confirm-no").onclick = () => {
+    document.getElementById("confirm-overlay").style.display = "none";
+};
 
-  chatMessages.push({user: currentUser, text: msg});
-  input.value = "";
-  saveChat();
-  renderChat();
-}
+/* =======================================================
+   ================== LOGIN / CREATION ====================
+   ======================================================= */
 
-function renderChat() {
-  const box = document.getElementById("chat-messages");
-  if(!box) return;
-  
-  box.innerHTML = "";
-  chatMessages.forEach(msg => {
-    box.innerHTML += `<div class="message"><span>${msg.user} :</span> ${msg.text}</div>`;
-  });
+function login() {
+  const email = document.getElementById("email").value.trim();
+  const pass = document.getElementById("password").value.trim();
 
-  box.scrollTop = box.scrollHeight;
-}
-</script>
-
-<!-- ==================== B I E N S ==================== -->
-<script>
-biens = [
-{nom:"Terrain Friche Aztor",prix:12000,revenue:0,type:"terrain",surface:4000},
-{nom:"Terrain Friche Velya",prix:30000,revenue:0,type:"terrain",surface:10000},
-{nom:"Terrain Friche Xylion",prix:50000,revenue:0,type:"terrain",surface:20000},
-{nom:"Villa Solaria",prix:250000,revenue:2000,type:"villa"},
-{nom:"Villa Lunara",prix:400000,revenue:3000,type:"villa"},
-{nom:"Immeuble Zanthor",prix:600000,revenue:4500,type:"immeuble"},
-{nom:"Château Valmor",prix:1200000,revenue:10000,type:"chateau"},
-{nom:"Palais Selyra",prix:2500000,revenue:20000,type:"palais"},
-{nom:"Gîte Montval",prix:80000,revenue:700,type:"gite"},
-{nom:"Gîte Rivara",prix:150000,revenue:1200,type:"gite"},
-];
-
-function trierBiens(prixCroissant=true){
-  biens.sort((a,b)=> prixCroissant ? a.prix-b.prix : b.prix-a.prix);
-}
-
-// ==================== PAGE PROPRIETES ====================
-function renderProprietes(){
-  const main = document.getElementById('main');
-  let html = `<div class="card">
-  <h3>Propriétés</h3>
-  <button onclick="showMesProprietes()">Mes propriétés</button>
-  <button onclick="showAchatProprietes()">Acheter une propriété</button>
-  </div>`;
-  main.innerHTML = html;
-  saveGame();
-}
-
-// ==================== MES PROPRIETES ====================
-function showMesProprietes(){
-  const main = document.getElementById('main');
-  let mesBiens = users[currentUser].biens;
-  if(mesBiens.length===0){
-    main.innerHTML = `<div class="card"><h3>Mes propriétés</h3><p>Vous ne possédez aucun bien.</p><button onclick="renderProprietes()">Retour</button></div>`;
+  if (email === "" || pass === "") {
+    alert("Veuillez remplir email et mot de passe");
     return;
   }
-  let html = `<div class="card"><h3>Mes propriétés</h3><table><tr><th>Nom</th><th>Prix</th><th>Revenu</th><th>Actions</th></tr>`;
+
+  // Création de compte
+  if (!users[email]) {
+      users[email] = {
+          password: pass,
+          liquidite: 200000,
+          patrimoine: 200000,
+          biens: [],
+          entreprises: []
+      };
+      saveGame();
+  }
+
+  // Mauvais mot de passe
+  if (users[email].password !== pass) {
+    alert("Mot de passe incorrect");
+    return;
+  }
+
+  // Connexion ok
+  currentUser = email;
+  liquidite = users[email].liquidite;
+  patrimoine = users[email].patrimoine;
+  entreprises = users[email].entreprises;
+
+  document.getElementById("login-container").style.display = "none";
+
+  // Vérifie si mise à jour journalière nécessaire
+  checkDailyUpdate();
+
+  showPage("accueil");
+}
+
+/* =======================================================
+   ================== MISE À JOUR JOURNALIÈRE ============
+   ======================================================= */
+
+function checkDailyUpdate() {
+    const now = new Date();
+
+    // Si aucune mise à jour jamais faite → initialise
+<script>
+/* ==================== LISTE DES PROPRIÉTÉS PRIVÉES ==================== */
+biensBase = [
+  {nom:"T1 Standard", prix:50000, revenue:500, type:"appartement"},
+  {nom:"T1 Luxueux", prix:80000, revenue:800, type:"appartement"},
+  {nom:"T2 Standard", prix:90000, revenue:900, type:"appartement"},
+  {nom:"T2 Luxueux", prix:150000, revenue:1500, type:"appartement"},
+  {nom:"T3 Standard", prix:180000, revenue:1800, type:"appartement"},
+  {nom:"T3 Luxueux", prix:250000, revenue:2500, type:"appartement"},
+  {nom:"T4 Standard", prix:300000, revenue:3000, type:"appartement"},
+  {nom:"T4 Luxueux", prix:400000, revenue:4000, type:"appartement"},
+  {nom:"Maison de ville", prix:120000, revenue:1200, type:"maison"},
+  {nom:"Maison moderne", prix:200000, revenue:2000, type:"maison"},
+  {nom:"Villa Solaria", prix:250000, revenue:2000, type:"villa"},
+  {nom:"Villa Lunara", prix:400000, revenue:3000, type:"villa"},
+  {nom:"Gîte Montval", prix:80000, revenue:700, type:"gite"},
+  {nom:"Gîte Rivara", prix:150000, revenue:1200, type:"gite"},
+  {nom:"Petit Immeuble Zanthor", prix:600000, revenue:4500, type:"immeuble"},
+  {nom:"Immeuble Luxe", prix:800000, revenue:6000, type:"immeuble"},
+  {nom:"Château Valmor", prix:1200000, revenue:10000, type:"chateau"},
+  {nom:"Palais Selyra", prix:2500000, revenue:20000, type:"palais"},
+  {nom:"Manoir Eldoria", prix:1800000, revenue:12000, type:"manoir"},
+  {nom:"Demeure Grandiosa", prix:3000000, revenue:25000, type:"manoir"},
+  {nom:"Appartement Penthouse", prix:500000, revenue:5000, type:"appartement"},
+  {nom:"Maison Contemporaine", prix:350000, revenue:3500, type:"maison"},
+  {nom:"Villa Céleste", prix:450000, revenue:4000, type:"villa"},
+  {nom:"Résidence Riviera", prix:700000, revenue:7000, type:"immeuble"},
+  {nom:"Loft Industriel", prix:400000, revenue:3500, type:"appartement"},
+  {nom:"Maison de campagne", prix:250000, revenue:2200, type:"maison"},
+  {nom:"Gîte Alpina", prix:120000, revenue:1000, type:"gite"},
+  {nom:"Maison Bord de Mer", prix:600000, revenue:5500, type:"maison"},
+  {nom:"Villa Royale", prix:800000, revenue:7000, type:"villa"},
+  {nom:"Immeuble Prestige", prix:1000000, revenue:9000, type:"immeuble"}
+];
+
+/* ==================== AFFICHAGE DES PROPRIÉTÉS ==================== */
+
+function renderProprietes() {
+  const main = document.getElementById('main');
+  let html = `<div class="card">
+    <h3>Propriétés</h3>
+    <button class="action-btn btn-buy" onclick="showAchatProprietes()">Acheter une propriété</button>
+    <button class="action-btn btn-rent" onclick="showMesProprietes()">Mes propriétés</button>
+    </div>`;
+  main.innerHTML = html;
+}
+
+/* ==================== MES PROPRIÉTÉS ==================== */
+
+function showMesProprietes(){
+  const main = document.getElementById('main');
+  let mesBiens = users[currentUser].biens || [];
+
+  if(mesBiens.length===0){
+    main.innerHTML = `<div class="card"><h3>Mes propriétés</h3>
+      <p>Vous ne possédez aucun bien.</p>
+      <button class="action-btn btn-rent" onclick="renderProprietes()">Retour</button></div>`;
+    return;
+  }
+
+  let html = `<div class="card"><h3>Mes propriétés</h3>
+  <table>
+    <tr><th>Nom</th><th>Prix</th><th>Revenu</th><th>Actions</th></tr>`;
+
   mesBiens.forEach((bien,index)=>{
     html += `<tr>
-    <td>${bien.nom} ${bien.location ? "<span style='color:#4caf50'>(EN LOCATION)</span>" : ""}</td>
-    <td>${bien.prix.toLocaleString()} €</td>
-    <td>${bien.revenue.toLocaleString()} €/jour</td>
-    <td>
-    <button onclick="vendreBien(${index})">Vendre</button>
-    <button onclick="embellirBien(${index})">Embellir</button>
-    <button onclick="mettreEnLocation(${index})">Mettre en location</button>
-    </td>
+      <td>${bien.nom} ${bien.locationActive ? "<span style='color:#4caf50'>(EN LOCATION)</span>" : ""}</td>
+      <td>${bien.prix.toLocaleString()} €</td>
+      <td>${bien.revenue.toLocaleString()} €/jour</td>
+      <td>
+        <button class="action-btn btn-sell" onclick="openConfirm('Vendre ${bien.nom} ?',()=>vendreBien(${index}))">Vendre</button>
+        <button class="action-btn btn-upgrade" onclick="openConfirm('Embellir ${bien.nom} ?',()=>embellirBien(${index}))">Embellir</button>
+        <button class="action-btn btn-rent" onclick="openConfirm('Mettre en location ${bien.nom} ?',()=>mettreEnLocation(${index}))">Location</button>
+      </td>
     </tr>`;
   });
-  html += `</table><button onclick="renderProprietes()">Retour</button></div>`;
+
+  html += `</table><button class="action-btn btn-rent" onclick="renderProprietes()">Retour</button></div>`;
   main.innerHTML = html;
 }
 
-// ==================== ACHAT BIEN ====================
+/* ==================== ACHAT PROPRIÉTÉS ==================== */
+
 function showAchatProprietes(){
   const main = document.getElementById('main');
-  trierBiens(true);
-  let html = `<div class="card"><h3>Acheter une propriété</h3><table><tr><th>Nom</th><th>Prix</th><th>Revenu</th><th>Action</th></tr>`;
-  biens.forEach((bien,index)=>{
+  biensBase.sort((a,b)=>a.prix-b.prix);
+
+  let html = `<div class="card"><h3>Acheter une propriété</h3>
+    <table>
+      <tr><th>Nom</th><th>Prix</th><th>Revenu</th><th>Action</th></tr>`;
+
+  biensBase.forEach((bien,index)=>{
     html += `<tr>
-    <td>${bien.nom}</td>
-    <td>${bien.prix.toLocaleString()} €</td>
-    <td>${bien.revenue.toLocaleString()} €/jour</td>
-    <td><button onclick="acheterBien(${index})">Acheter</button></td>
+      <td>${bien.nom}</td>
+      <td>${bien.prix.toLocaleString()} €</td>
+      <td>${bien.revenue.toLocaleString()} €/jour</td>
+      <td><button class="action-btn btn-buy" onclick="openConfirm('Acheter ${bien.nom} ?',()=>acheterBien(${index}))">Acheter</button></td>
     </tr>`;
   });
-  html += `</table><button onclick="renderProprietes()">Retour</button></div>`;
+
+  html += `</table><button class="action-btn btn-rent" onclick="renderProprietes()">Retour</button></div>`;
   main.innerHTML = html;
 }
 
+/* ==================== ACTIONS ==================== */
+
 function acheterBien(index){
-  const bien = biens[index];
+  const bien = biensBase[index];
   if(liquidite < bien.prix){alert("Pas assez d'argent"); return;}
   liquidite -= bien.prix;
-  users[currentUser].biens.push({...bien});
   patrimoine += bien.prix;
-  alert("Bien acheté : "+bien.nom);
+  users[currentUser].biens.push({...bien, locationActive:false});
   saveGame();
   showAchatProprietes();
 }
 
-// ==================== VENTE ====================
 function vendreBien(index){
   const bien = users[currentUser].biens[index];
   liquidite += bien.prix;
   patrimoine -= bien.prix;
   users[currentUser].biens.splice(index,1);
-  alert("Bien vendu : "+bien.nom);
   saveGame();
   showMesProprietes();
 }
 
-// ==================== EMBELLIR (50%) ====================
 function embellirBien(index){
   let bien = users[currentUser].biens[index];
-  let cout = Math.floor(bien.prix * 0.50);
+  let cout = Math.floor(bien.prix*0.5);
+  if(liquidite < cout){alert("Pas assez d'argent"); return;}
+  liquidite -= cout;
+  bien.revenue = Math.floor(bien.revenue*1.3);
+  bien.prix = Math.floor(bien.prix*1.2);
+  saveGame();
+  showMesProprietes();
+}
 
-  if(liquidite < cout){
-    alert("Pas assez d'argent pour embellir");
+function mettreEnLocation(index){
+  let bien = users[currentUser].biens[index];
+  bien.locationActive = true;
+  saveGame();
+  showMesProprietes();
+}
+</script>
+<script>
+/* ==================== LISTE DES BATIMENTS PROFESSIONNELS ==================== */
+batimentsPro = [
+  {nom:"Atelier de base", prix:100000, revenue:2000, type:"atelier"},
+  {nom:"Atelier moderne", prix:250000, revenue:5000, type:"atelier"},
+  {nom:"Usine légère", prix:500000, revenue:10000, type:"usine"},
+  {nom:"Usine avancée", prix:1000000, revenue:20000, type:"usine"},
+  {nom:"Centre logistique", prix:1500000, revenue:30000, type:"logistique"},
+  {nom:"Centrale solaire", prix:2000000, revenue:40000, type:"centrale"},
+  {nom:"Centrale nucléaire", prix:5000000, revenue:100000, type:"centrale"},
+  {nom:"Hangar industriel", prix:300000, revenue:7000, type:"hangar"},
+  {nom:"Atelier R&D", prix:800000, revenue:15000, type:"atelier"},
+  {nom:"Usine robotisée", prix:2500000, revenue:50000, type:"usine"}
+];
+
+/* ==================== AFFICHAGE MENU ENTREPRISE ==================== */
+
+function renderEntreprisesMenu(){
+  const main = document.getElementById("main");
+  main.innerHTML = `
+    <div class="card" style="display:flex">
+      <div style="width:200px; margin-right:20px;">
+        <button class="action-btn btn-menu" onclick="showEntreprisePage('accueil')">🏠 Accueil</button>
+        <button class="action-btn btn-menu" onclick="showEntreprisePage('bourse')">📈 Bourse</button>
+        <button class="action-btn btn-menu" onclick="showEntreprisePage('proprietes')">🏢 Propriétés</button>
+        <button class="action-btn btn-menu" onclick="showEntreprisePage('finance')">💰 Finance</button>
+      </div>
+      <div id="entreprise-main" style="flex:1;"></div>
+    </div>
+  `;
+  showEntreprisePage("accueil");
+}
+
+/* ==================== NAVIGATION ENTREPRISE ==================== */
+
+function showEntreprisePage(page){
+  const div = document.getElementById("entreprise-main");
+  div.innerHTML = "";
+
+  if(!entreprises) entreprises = [];
+
+  if(page === "accueil"){
+    let revenuTotal = 0;
+    entreprises.forEach(e=>{
+      e.batiments.forEach(b=>{
+        revenuTotal += b.revenue;
+      });
+    });
+
+    div.innerHTML = `<h3>Accueil entreprise</h3>
+      <p>Nombre d'entreprises : ${entreprises.length}</p>
+      <p>Nombre total de bâtiments : ${entreprises.reduce((acc,e)=>acc+e.batiments.length,0)}</p>
+      <p>Revenu quotidien attendu : ${revenuTotal.toLocaleString()} €</p>`;
+  }
+
+  else if(page === "bourse"){
+    div.innerHTML = `<h3>Bourse</h3><p>Simuler fluctuations et vente d'actions...</p>`;
+    // Ici on peut rajouter un système de bourse plus tard
+  }
+
+  else if(page === "proprietes"){
+    let html = `<h3>Propriétés d'entreprise</h3>`;
+    if(entreprises.length===0){
+      html += `<p>Aucune entreprise possédée.</p>`;
+    } else {
+      entreprises.forEach((e,index)=>{
+        html += `<div style="border:1px solid rgba(255,255,255,0.2);padding:10px;margin-bottom:10px;">
+          <h4>${e.nom}</h4>
+          <p>Capital : ${e.capital.toLocaleString()} €</p>
+          <p>Bâtiments :</p>
+          <ul>`;
+        e.batiments.forEach(b=>{
+          html += `<li>${b.nom} - Prix : ${b.prix.toLocaleString()} € - Revenu : ${b.revenue.toLocaleString()} €/jour</li>`;
+        });
+        html += `</ul>
+        <button class="action-btn btn-buy" onclick="openConfirm('Ajouter un bâtiment à ${e.nom} ?',()=>acheterBatimentEntreprise(${index}))">Acheter bâtiment</button>
+        </div>`;
+      });
+    }
+    div.innerHTML = html;
+  }
+
+  else if(page === "finance"){
+    let html = `<h3>Finance</h3>`;
+    if(entreprises.length===0){
+      html += `<p>Aucune entreprise possédée.</p>`;
+    } else {
+      entreprises.forEach((e,index)=>{
+        html += `<div style="border:1px solid rgba(255,255,255,0.2);padding:10px;margin-bottom:10px;">
+          <h4>${e.nom}</h4>
+          <p>Capital : ${e.capital.toLocaleString()} €</p>
+          <button class="action-btn btn-upgrade" onclick="openConfirm('Levée de fonds pour ${e.nom} ?',()=>leveeDeFond(${index}))">Levée de fonds</button>
+        </div>`;
+      });
+    }
+    div.innerHTML = html;
+  }
+}
+
+/* ==================== ACHAT BÂTIMENT ENTREPRISE ==================== */
+
+function acheterBatimentEntreprise(indexEntreprise){
+  const e = entreprises[indexEntreprise];
+
+  // Choisir un batiment aléatoire disponible
+  const dispo = batimentsPro[Math.floor(Math.random()*batimentsPro.length)];
+
+  if(e.capital < dispo.prix){
+    alert("Pas assez de capital pour acheter ce bâtiment");
     return;
   }
 
-  liquidite -= cout;
-  bien.revenue = Math.floor(bien.revenue * 1.3);
-  bien.prix = Math.floor(bien.prix * 1.2);
-
-  alert("Bien embelli ! Coût : 50% du prix");
-
+  e.capital -= dispo.prix;
+  e.batiments.push({...dispo});
   saveGame();
-  showMesProprietes();
+  showEntreprisePage("proprietes");
 }
 
-// ==================== LOCATION (5%) ====================
-function mettreEnLocation(index){
-  let bien = users[currentUser].biens[index];
-  bien.revenue = Math.floor(b
+/* ==================== LEVÉE DE FONDS ==================== */
+
+function leveeDeFond(indexEntreprise){
+  const e = entreprises[indexEntreprise];
+  // Ajout aléatoire de capital entre 50k et 500k
+  const montant = Math.floor(Math.random()*450000)+50000;
+  e.capital += montant;
+  liquidite -= montant; // On prélève du joueur
+  saveGame();
+  showEntreprisePage("finance");
+}
+
+/* ==================== CYCLE AUTOMATIQUE ENTREPRISE ==================== */
+
+function applyDailyIncomeCycleEntreprise() {
+  if(!entreprises) return;
+
+  entreprises.forEach(e=>{
+    e.batiments.forEach(b=>{
+      let impots = b.prix*0.07;
+      let entretien = b.prix*0.03;
+      let net = b.revenue - impots - entretien;
+      e.revenuAttente = e.revenuAttente || 0;
+      e.revenuAttente += net;
+    });
+  });
+
+  // Application du revenu après 1 jour (similaire aux propriétés)
+  entreprises.forEach(e=>{
+    liquidite += e.revenuAttente || 0;
+    e.revenuAttente = 0;
+  });
+
+  saveGame();
+}
+</script>
+<script>
+/* ==================== POPUP DE CONFIRMATION ==================== */
+function openConfirm(message, callback){
+  if(confirm(message)){
+    callback();
+  }
+}
+
+/* ==================== CYCLE AUTOMATIQUE JOURNALIER ==================== */
+function applyDailyIncomeCycle(){
+  if(!currentUser) return;
+
+  // ==== Propriétés privées ====
+  let revenusPropriete = 0;
+  users[currentUser].biens.forEach(b=>{
+    if(b.locationActive){
+      let impots = b.revenue * 0.07;
+      let entretien = b.revenue * 0.03;
+      let net = b.revenue - impots - entretien;
+      revenusPropriete += net;
+    }
+  });
+
+  // ==== Entreprises ====
+  let revenusEntreprise = 0;
+  if(entreprises){
+    entreprises.forEach(e=>{
+      e.batiments.forEach(b=>{
+        let impots = b.revenue * 0.07;
+        let entretien = b.revenue * 0.03;
+        let net = b.revenue - impots - entretien;
+        revenusEntreprise += net;
+      });
+    });
+  }
+
+  let total = revenusPropriete + revenusEntreprise;
+
+  // Application différée : argent rentre 1 jour après
+  setTimeout(()=>{
+    liquidite += total;
+    saveGame();
+    console.log(`Revenus du jour appliqués : ${total.toLocaleString()} €`);
+  }, 24*60*60*1000); // 24h en ms, simuler 1 jour réel
+
+  saveGame();
+}
+
+/* ==================== INITIALISATION AUTOMATIQUE ==================== */
+function startDailyCycle(){
+  // Appliquer cycle tous les jours à 00h01
+  setInterval(()=>{applyDailyIncomeCycle();}, 24*60*60*1000);
+}
+
+/* ==================== STYLE DES BOUTONS ==================== */
+const styleBtn = document.createElement('style');
+styleBtn.innerHTML = `
+.action-btn{margin:5px;padding:8px 12px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;transition:0.3s;}
+.action-btn:hover{opacity:0.85;}
+.btn-buy{background:linear-gradient(90deg,#6a11cb,#2575fc);color:#fff;}
+.btn-sell{background:linear-gradient(90deg,#ff416c,#ff4b2b);color:#fff;}
+.btn-upgrade{background:linear-gradient(90deg,#f7971e,#ffd200);color:#fff;}
+.btn-rent{background:linear-gradient(90deg,#00c6ff,#0072ff);color:#fff;}
+.btn-menu{background:linear-gradient(90deg,#4facfe,#00f2fe);color:#fff;width:100%;margin-bottom:10px;}
+`;
+document.head.appendChild(styleBtn);
+
+/* ==================== FONCTION SAUVEGARDE GLOBALE ==================== */
+function saveGame(){
+  if(!currentUser) return;
+  users[currentUser].patrimoine = patrimoine;
+  users[currentUser].liquidite = liquidite;
+  users[currentUser].entreprises = entreprises;
+  localStorage.setItem('ef_users', JSON.stringify(users));
+}
+
+/* ==================== LANCEMENT AUTOMATIQUE ==================== */
+window.addEventListener('load', ()=>{
+  if(currentUser){
+    startDailyCycle();
+  }
+});
+</script>
+
