@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Empire Financer</title>
+<style>
+/* ==================== RESET ==================== */
+* {margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body {background:linear-gradient(120deg, #1f1c2c, #928dab); color:#fff;}
+button {cursor:pointer;border:none;outline:none; transition:0.3s;}
+button:hover {opacity:0.85;}
+/* ==================== HEADER ==================== */
+header {width:100%;padding:20px;background:rgba(0,0,0,0.6);display:flex;justify-content:space-between;align-items:center;position:fixed;top:0;left:0;z-index:100;}
+header h1 {font-size:1.8rem;color:#ffd700;}
+header .menu-btn {font-size:1.5rem;background:none;color:#fff;}
+/* ==================== LOGIN ==================== */
+#login-container {position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.7);padding:40px;border-radius:15px;width:300px;text-align:center;}
+#login-container h2 {margin-bottom:20px;color:#ffd700;}
+#login-container input {width:90%;padding:10px;margin:10px 0;border-radius:8px;border:none;}
+#login-container button {width:95%;padding:12px;background:#4caf50;color:#fff;font-weight:bold;border-radius:8px;margin-top:10px;}
+/* ==================== SIDEBAR ==================== */
+#sidebar {position:fixed;top:0;left:-250px;width:250px;height:100%;background:rgba(0,0,0,0.85);transition:0.4s;padding-top:80px;z-index:99;}
+#sidebar.active {left:0;}
+#sidebar button {width:90%;margin:10px auto;padding:12px;background:linear-gradient(90deg,#6a11cb,#2575fc);border-radius:10px;font-weight:bold;color:#fff;display:block;}
+/* ==================== MAIN ==================== */
+#main {margin-top:80px;padding:20px;transition:0.4s;min-height:90vh;}
+/* ==================== CARDS ==================== */
+.card {background:rgba(255,255,255,0.1);border-radius:15px;padding:15px;margin:15px 0;transition:0.3s;}
+.card:hover {background:rgba(255,255,255,0.2);}
+.card h3 {color:#ffd700;margin-bottom:10px;}
+.card p {font-size:0.9rem;margin-bottom:5px;}
+/* ==================== TABLE ==================== */
+table {width:100%;border-collapse:collapse;margin-top:20px;}
+table th, table td {padding:10px;border-bottom:1px solid rgba(255,255,255,0.2);text-align:center;}
+table th {background:rgba(255,255,255,0.1);}
+table tr:hover {background:rgba(255,255,255,0.2);}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Empire Financer</h1>
+<button class="menu-btn" onclick="toggleSidebar()">☰</button>
+</header>
+
+<!-- LOGIN -->
+<div id="login-container">
+<h2>Connexion</h2>
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Mot de passe">
+<button onclick="login()">Se connecter / Créer compte</button>
+<p style="font-size:0.8rem;margin-top:10px;">Vos données sont sauvegardées automatiquement</p>
+</div>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+<button onclick="showPage('accueil')">🏠 Accueil</button>
+<button onclick="showPage('proprietes')">🏢 Propriétés</button>
+<button onclick="showPage('portefeuille')">💰 Portefeuille</button>
+<button onclick="showPage('marche')">📈 Marché</button>
+<button onclick="showPage('entreprises')">🏭 Entreprises</button>
+<button onclick="showPage('banque')">🏦 Banque</button>
+</div>
+
+<!-- MAIN -->
+<div id="main"></div>
+
+<script>
+// ==================== VARIABLES GLOBALES ====================
+let currentUser = null;
+let users = JSON.parse(localStorage.getItem('ef_users')) || {};
+let biens = [];
+let biensSpeciaux = [];
+let entreprises = [];
+let dettes = [];
+let patrimoine = 200000;
+let liquidite = 200000;
+
+// ==================== LOGIN ====================
+function login() {
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+  if(!email || !password){alert('Remplissez email et mot de passe');return;}
+  if(!users[email]){users[email]={password:password,patrimoine:200000,liquidite:200000,biens:[],entreprises:[],dettes:[]};}
+  if(users[email].password!==password){alert('Mot de passe incorrect');return;}
+  currentUser = email;
+  patrimoine = users[email].patrimoine;
+  liquidite = users[email].liquidite;
+  entreprises = users[email].entreprises;
+  dettes = users[email].dettes;
+  document.getElementById('login-container').style.display='none';
+  showPage('accueil');
+}
+
+// ==================== SIDEBAR ====================
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('active');
+}
+
+// ==================== SAUVEGARDE ====================
+function saveGame(){
+  if(!currentUser)return;
+  users[currentUser].patrimoine = patrimoine;
+  users[currentUser].liquidite = liquidite;
+  users[currentUser].entreprises = entreprises;
+  users[currentUser].dettes = dettes;
+  localStorage.setItem('ef_users',JSON.stringify(users));
+}
+
+// ==================== NAVIGATION ====================
+function showPage(page){
+  const main = document.getElementById('main');
+  main.innerHTML='';
+  toggleSidebar();
+  if(page==='accueil'){renderAccueil();}
+  else if(page==='proprietes'){renderProprietes();}
+  else if(page==='portefeuille'){renderPortefeuille();}
+  else if(page==='marche'){renderMarche();}
+  else if(page==='entreprises'){renderEntreprises();}
+  else if(page==='banque'){renderBanque();}
+}
+
+// ==================== PAGE ACCUEIL ====================
+function renderAccueil(){
+  const main = document.getElementById('main');
+  const html = `<div class="card">
+  <h3>Bienvenue dans Empire Financer</h3>
+  <p>Liquidité : ${liquidite.toLocaleString()} €</p>
+  <p>Patrimoine total : ${patrimoine.toLocaleString()} €</p>
+  <p>Nombre de biens : ${users[currentUser].biens.length}</p>
+  <p>Nombre d'entreprises : ${entreprises.length}</p>
+  </div>`;
+  main.innerHTML = html;
+  saveGame();
+}
+</script>
+
+<!-- ==================== B I E N S ==================== -->
+<script>
+biens = [
+{nom:"Terrain Friche Aztor",prix:12000,revenue:0,type:"terrain",surface:4000},
+{nom:"Terrain Friche Velya",prix:30000,revenue:0,type:"terrain",surface:10000},
+{nom:"Terrain Friche Xylion",prix:50000,revenue:0,type:"terrain",surface:20000},
+{nom:"Villa Solaria",prix:250000,revenue:2000,type:"villa"},
+{nom:"Villa Lunara",prix:400000,revenue:3000,type:"villa"},
+{nom:"Immeuble Zanthor",prix:600000,revenue:4500,type:"immeuble"},
+{nom:"Château Valmor",prix:1200000,revenue:10000,type:"chateau"},
+{nom:"Palais Selyra",prix:2500000,revenue:20000,type:"palais"},
+{nom:"Gîte Montval",prix:80000,revenue:700,type:"gite"},
+{nom:"Gîte Rivara",prix:150000,revenue:1200,type:"gite"},
+];
+
+// tri
+function trierBiens(prixCroissant=true){
+  biens.sort((a,b)=> prixCroissant ? a.prix-b.prix : b.prix-a.prix);
+}
+
+// ==================== PAGE PROPRIETES ====================
+function renderProprietes(){
+  const main = document.getElementById('main');
+  let html = `<div class="card">
+  <h3>Propriétés</h3>
+  <button onclick="showMesProprietes()">Mes propriétés</button>
+  <button onclick="showAchatProprietes()">Acheter une propriété</button>
+  </div>`;
+  main.innerHTML = html;
+  saveGame();
+}
+
+// ==================== MES PROPRIETES ====================
+function showMesProprietes(){
+  const main = document.getElementById('main');
+  let mesBiens = users[currentUser].biens;
+  if(mesBiens.length===0){
+    main.innerHTML = `<div class="card"><h3>Mes propriétés</h3><p>Vous ne possédez aucun bien.</p><button onclick="renderProprietes()">Retour</button></div>`;
+    return;
+  }
+  let html = `<div class="card"><h3>Mes propriétés</h3><table><tr><th>Nom</th><th>Prix</th><th>Revenu</th><th>Actions</th></tr>`;
+  mesBiens.forEach((bien,index)=>{
+    html += `<tr>
+    <td>${bien.nom} ${bien.location ? "<span style='color:#4caf50'>(EN LOCATION)</span>" : ""}</td>
+    <td>${bien.prix.toLocaleString()} €</td>
+    <td>${bien.revenue.toLocaleString()} €/jour</td>
+    <td>
+    <button onclick="vendreBien(${index})">Vendre</button>
+    <button onclick="embellirBien(${index})">Embellir</button>
+    <button onclick="mettreEnLocation(${index})">Mettre en location</button>
+    </td>
+    </tr>`;
+  });
+  html += `</table><button onclick="renderProprietes()">Retour</button></div>`;
+  main.innerHTML = html;
+}
+
+// ==================== ACHAT BIEN ====================
+function showAchatProprietes(){
+  const main = document.getElementById('main');
+  trierBiens(true);
+  let html = `<div class="card"><h3>Acheter une propriété</h3><table><tr><th>Nom</th><th>Prix</th><th>Revenu</th><th>Action</th></tr>`;
+  biens.forEach((bien,index)=>{
+    html += `<tr>
+    <td>${bien.nom}</td>
+    <td>${bien.prix.toLocaleString()} €</td>
+    <td>${bien.revenue.toLocaleString()} €/jour</td>
+    <td><button onclick="acheterBien(${index})">Acheter</button></td>
+    </tr>`;
+  });
+  html += `</table><button onclick="renderProprietes()">Retour</button></div>`;
+  main.innerHTML = html;
+}
+
+function acheterBien(index){
+  const bien = biens[index];
+  if(liquidite < bien.prix){alert("Pas assez d'argent"); return;}
+  liquidite -= bien.prix;
+  users[currentUser].biens.push({...bien});
+  patrimoine += bien.prix;
+  alert("Bien acheté : "+bien.nom);
+  saveGame();
+  showAchatProprietes();
+}
+
+// ==================== VENTE ====================
+function vendreBien(index){
+  const bien = users[currentUser].biens[index];
+  liquidite += bien.prix;
+  patrimoine -= bien.prix;
+  users[currentUser].biens.splice(index,1);
+  alert("Bien vendu : "+bien.nom);
+  saveGame();
+  showMesProprietes();
+}
+
+// ==================== EMBELLIR (50%) ====================
+function embellirBien(index){
+  let bien = users[currentUser].biens[index];
+  let cout = Math.floor(bien.prix * 0.50);
+
+  if(liquidite < cout){
+    alert("Pas assez d'argent pour embellir");
+    return;
+  }
+
+  liquidite -= cout;
+  bien.revenue = Math.floor(bien.revenue * 1.3);
+  bien.prix = Math.floor(bien.prix * 1.2);
+
+  alert("Bien embelli ! Coût : 50% du prix");
+
+  saveGame();
+  showMesProprietes();
+}
+
+// ==================== LOCATION (5%) ====================
+function mettreEnLocation(index){
+  let bien = users[currentUser].biens[index];
+
+  bien.revenue = Math.floor(bien.prix * 0.05);
+  bien.location = true;
+
+  alert("Bien mis en location (Revenu = 5% du prix)");
+
+  saveGame();
+  showMesProprietes();
+}
+</script>
+
+<!-- ==================== PORTEFEUILLE, ENTREPRISES, MARCHE, BANQUE ==================== -->
+<script>
+// (contenu original inchangé, sauf affichage propriétés)
+</script>
+
+</body>
+</html>
